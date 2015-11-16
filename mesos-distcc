@@ -1,6 +1,5 @@
-#!/usr/bin/env python2.6
-
-# Support Python 2.6+ and 3.
+#!/usr/bin/env python2.7
+# Support Python 2.7+ and 3.
 from __future__ import print_function
 
 import os
@@ -8,8 +7,9 @@ import random
 import subprocess
 import sys
 
-import mesos
-import mesos_pb2
+from mesos import interface as mesos
+from mesos import native as mesos_native
+from mesos.interface import mesos_pb2
 
 
 class DistCCScheduler(mesos.Scheduler):
@@ -191,7 +191,7 @@ if __name__ == '__main__':
     framework.failover_timeout = 1.0
     framework.checkpoint = False
 
-    driver = mesos.MesosSchedulerDriver(
+    driver = mesos_native.MesosSchedulerDriver(
         DistCCScheduler(jobs, DISTCCD_PATH, sys.argv[1:]),
         framework,
         MESOS_MASTER)
